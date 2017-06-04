@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:root="http://www.servicios.co/pagos/schemas"
+             xmlns:tns="http://www.servicios.co/pagos/dispatcher"
+             targetNamespace="http://www.servicios.co/pagos/service"
+             name="EnrrutadorService">
+
+    <types>
+        <xsd:schema xmlns:pay="http://www.servicios.co/enrutador/schemas">
+            <xsd:import schemaLocation="orquestador.xsd" namespace="http://www.servicios.co/enrutadorschemas"/>
+        </xsd:schema>
+    </types>
+
+    <message name="enrutar">
+        <part name="Input" element="dis:dto"/>
+    </message>
+
+    
+  
+    <portType name="Enrutador">
+        <operation name="enrutar">
+            <input message="tns:dto"/>
+            <output message="tns:callService"/>
+        </operation>
+
+     
+    </portType>
+
+    <binding name="ServicioEnrutador" type="tns:Enrutador">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <operation name="enrutar">
+            <soap12:operation soapAction="enrutar" soapActionRequired="true"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+
+
+       
+    </binding>
+
+    <service name="ServiceEnrutador">
+        <port name="Enrrutador" binding="tns:ServicioEnrutador">
+            <soap12:address location="http://www.servicio.co/Enrutador"/>
+        </port>
+    </service>
+</definitions>

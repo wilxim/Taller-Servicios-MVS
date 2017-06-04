@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:orq="http://www.servicios.co/orquestar/schemas"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified"
+            targetNamespace="http://www.servicios.co/orquestador/schemas">
+
+    <xsd:element name="codProceso"     type="orq:enrutar"/>
+    <xsd:element name="callService" type="orq:procesar"/>
+
+
+    <xsd:complexType name="proceso">
+        <xsd:sequence>
+            <xsd:element name="codProceso type="xsd:string"/>
+             <xsd:element name="WsRoot" type="xsd:integer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="callService">
+        <xsd:sequence>
+             <xsd:element name="codConvenvio" type="xsd:string"/>
+             <xsd:element name="callService" type="xsd:integer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+   
+    
+</xsd:schema>

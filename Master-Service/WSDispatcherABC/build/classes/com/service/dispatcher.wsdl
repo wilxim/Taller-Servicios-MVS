@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:dis="http://www.servicios.co/pagos/schemas"
+             xmlns:tns="http://www.servicios.co/pagos/dispatcher"
+             targetNamespace="http://www.servicios.co/pagos/service"
+             name="PagosSerivce">
+
+    <types>
+        <xsd:schema xmlns:pay="http://www.servicios.co/pagos/schemas">
+            <xsd:import schemaLocation="dispatcher.xsd" namespace="http://www.servicios.co/dispatcher/schemas"/>
+        </xsd:schema>
+    </types>
+
+    <message name="enrutar">
+        <part name="Input" element="dis:codConvenio"/>
+    </message>
+
+    <message name="newConvenio">
+        <part name="Input" element="dis:codConvenio"/>
+         <part name="Input" element="dis:wsRoot"/>
+    </message>
+
+    <message name="DeleteConvenio">
+          <part name="Input" element="dis:ResultadoConsulta"/>
+    </message>
+
+    
+
+    <portType name="Dispatcher">
+        <operation name="enrutar">
+            <input message="tns:Consulta"/>
+            <output message="tns:RespustaConsulta"/>
+        </operation>
+
+        <operation name="DeleteConvenio">
+            <input message="tns:Pago"/>
+            <output message="tns:ResultadoPago"/>
+        </operation>
+
+        <operation name="newConvenio">
+            <input message="tns:Pago"/>
+            <output message="tns:ResultadoPago"/>
+        </operation>
+    </portType>
+
+    <binding name="ServicioDispatcher" type="tns:Dispatcher">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <operation name="enrutar">
+            <soap12:operation soapAction="consultar" soapActionRequired="true"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="newConvenio">
+            <soap12:operation soapAction="pagar" soapActionRequired="true"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="DeleteConvenio">
+            <soap12:operation soapAction="compensar" soapActionRequired="true"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="ServiceDistpatcher">
+        <port name="Dispatchery" binding="tns:ServicioDispatcher">
+            <soap12:address location="http://www.servicio.co/dispatcher"/>
+        </port>
+    </service>
+</definitions>

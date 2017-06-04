@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:dis="http://www.servicios.co/pagos/schemas"
+            elementFormDefault="qualified"
+            attributeFormDefault="qualified"
+            targetNamespace="http://www.servicios.co/pagos/schemas">
+
+    <xsd:element name="codConvenio" type="dis:enrutar"/>
+    <xsd:element name="NuevoConvenio" type="dis:NewConvenvio"/>
+
+
+    <xsd:complexType name="enrutar">
+        <xsd:sequence>
+            <xsd:element name="codConvenvio" type="xsd:string"/>
+             <xsd:element name="WsRoot" type="xsd:integer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="NewConvenvio">
+        <xsd:sequence>
+            <xsd:element name="CodConvenvio" type="xsd:string"/>
+            <xsd:element name="WSRoot" type="xsd:integer"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DeleteConvenio">
+        <xsd:sequence>
+           <xsd:element name="CodConvenvio" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    
+</xsd:schema>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:dis="http://www.servicios.co/pagos/schemas"
+             xmlns:tns="http://www.servicios.co/pagos/dispatcher"
+             targetNamespace="http://www.servicios.co/pagos/service"
+             name="OrquestadorService">
+
+    <types>
+        <xsd:schema xmlns:pay="http://www.servicios.co/orquestador/schemas">
+            <xsd:import schemaLocation="orquestador.xsd" namespace="http://www.servicios.co/orquestador/schemas"/>
+        </xsd:schema>
+    </types>
+
+    <message name="proceso">
+        <part name="Input" element="dis:codConvenio"/>
+    </message>
+
+    <message name="callService">
+        <part name="Input" element="dis:codConvenio"/>
+         <part name="Input" element="dis:wsRoot"/>
+    </message>
+
+  
+    <portType name="Orquestador">
+        <operation name="proceso">
+            <input message="tns:Consulta"/>
+            <output message="tns:RespustaConsulta"/>
+        </operation>
+
+        <operation name="callService">
+            <input message="tns:proceso"/>
+            <output message="tns:callService"/>
+        </operation>
+
+        <operation name="proceso">
+            <input message="tns:codProceso"/>
+            <input message="tns:WsRoot"/>
+            <output message="tns:callService"/>
+        </operation>
+    </portType>
+
+    <binding name="ServicioOrquestador" type="tns:Orquestador">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <operation name="proceso">
+            <soap12:operation soapAction="proceso" soapActionRequired="true"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="callService">
+            <soap12:operation soapAction="llamadoProceso" soapActionRequired="true"/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+
+       
+    </binding>
+
+    <service name="ServiceOrquestador">
+        <port name="Orquestador" binding="tns:ServicioOrquestador">
+            <soap12:address location="http://www.servicio.co/Orquestador"/>
+        </port>
+    </service>
+</definitions>
